@@ -1,0 +1,45 @@
+/*Estilos Formulario*/
+
+.card-formulario{
+  margin-top: 2em;
+}
+
+.input-ancho{
+  width: 80%;
+}
+
+.btn-registrar, .btn-actualizar, .btn-cancelar{
+  width: 60%;
+  padding: 1em;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+/* Estilos Tabla*/
+
+table{
+  width: 100%;
+  height: auto;
+}
+
+td.mat-cell, th.mat-header-cell{
+  padding: 1em;
+}
+
+.card-lista{
+  margin-top: 2em;
+}
+
+.acciones{
+  text-align: right;
+}
+
+.btn-editar{
+  color: #673ab7;
+}
+
+.btn-borrar{
+  color: #f44336;
+}

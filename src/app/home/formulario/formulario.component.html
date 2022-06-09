@@ -1,0 +1,198 @@
+<!--Empieza el Formulario-->
+
+<mat-card class="card-formulario">
+  <!--Doy el Título que corresponda al formulario según la acción a realizar-->
+  <mat-card-title>{{!mostrar ? "Nuevo Contacto" : "Editar Contacto "}}</mat-card-title>
+  <mat-card-actions>
+    <form [formGroup]="contactForm" #formGroupDirectiva="ngForm" (ngSubmit)="onSubmit(formGroupDirectiva)">
+
+      <mat-grid-list cols="12" rowHeight="80px">
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" placeholder="Nombre" formControlName="nombre" autocomplete="off" #input>
+            <mat-error  *ngIf="contactForm.get('nombre')?.touched && contactForm.get('nombre')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('nombre')?.touched && contactForm.get('nombre')?.errors?.['minlength']">
+              Debe contener mínimo {{contactForm.get('nombre')?.errors?.['minlength']?.requiredLength}} caracteres
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="8" [rowspan]="8">
+            <img class="img-fluid" src="./assets/img/undraw_add_user_re_5oib.svg" alt="Imagen para registrar contactos" *ngIf="!mostrar">
+            <img class="img-fluid" src="./assets/img/undraw_to_do_list_re_9nt7.svg" alt="Imagen para actualizar contactos" *ngIf="mostrar">
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Apellidos</mat-label>
+            <input matInput type="text" placeholder="Apellidos" formControlName="apellidos" autocomplete="off" #input>
+            <mat-error *ngIf="contactForm.get('apellidos')?.touched && contactForm.get('apellidos')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('apellidos')?.touched && contactForm.get('apellidos')?.errors?.['minlength']">
+              Debe contener mínimo {{contactForm.get('apellidos')?.errors?.['minlength']?.requiredLength}} caracteres
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Edad</mat-label>
+            <input matInput type="number" placeholder="Edad" formControlName="edad" autocomplete="off" #input>
+            <mat-error  *ngIf="contactForm.get('edad')?.touched && contactForm.get('edad')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('edad')?.touched && contactForm.get('edad')?.errors?.['min']">
+              Edad mínima {{contactForm.get('edad')?.errors?.['min']?.requiredLength}} años
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('edad')?.touched && contactForm.get('edad')?.errors?.['max']">
+              Edad máxima {{contactForm.get('edad')?.errors?.['max']?.requiredLength}} años
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>DNI</mat-label>
+            <input matInput type="text" placeholder="00000000X" formControlName="dni" autocomplete="off" #input>
+            <mat-error  *ngIf="contactForm.get('dni')?.touched && contactForm.get('dni')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('dni')?.touched && contactForm.get('dni')?.errors?.['minlength']">
+              Formato incorrecto Ejp: 00000000X
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" formControlName="cumpleanos">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error  *ngIf="contactForm.get('cumpleanos')?.touched && contactForm.get('cumpleanos')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('cumpleanos')?.touched && contactForm.get('cumpleanos')?.errors?.['minlength']">
+              Formato incorrecto dd/mm/aaaa
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Color Favorito</mat-label>
+            <input matInput type="text" minlength="3" placeholder="Color Favorito" formControlName="colorFavorito" autocomplete="off" #input>
+            <mat-error  *ngIf="contactForm.get('colorFavorito')?.touched && contactForm.get('colorFavorito')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+            <mat-error  *ngIf="contactForm.get('colorFavorito')?.touched && contactForm.get('colorFavorito')?.errors?.['minlength']">
+              Debe contener mínimo {{contactForm.get('colorFavorito')?.errors?.['minlength']?.requiredLength}} caracteres
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="input-ancho">
+            <mat-label>Sexo</mat-label>
+            <mat-select placeholder="Sexo" formControlName="sexo">
+              <mat-option [value]="itemSexo" *ngFor="let itemSexo of opcionesSexo">{{itemSexo}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="contactForm.get('sexo')?.touched && contactForm.get('sexo')?.errors?.['required']">
+              Campo obligatorio
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <button class='btn-registrar pointer' type="submit" mat-raised-button color="primary" matTooltip="Registrar" [disabled]="contactForm.invalid" *ngIf="!mostrar"><mat-icon>person_add</mat-icon></button>
+          <button class='btn-actualizar pointer' type="submit" mat-raised-button color="primary" matTooltip="Actualizar" [disabled]="contactForm.invalid" *ngIf="mostrar"><mat-icon>save</mat-icon></button>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <button class='btn-cancelar pointer' type="reset" mat-raised-button color="warn" matTooltip="Cancelar" (click)="cancelar(formGroupDirectiva)"><mat-icon>cancel</mat-icon></button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card-actions>
+</mat-card>
+
+<!--Empieza la tabla-->
+
+<div class="row">
+  <div class="col-12">
+    <mat-card class="card-lista table-responsive">
+      <mat-card-title>Lista de Contactos</mat-card-title>
+      <mat-card-actions>
+        <table mat-table #table [dataSource]="listaContactos" class="mat-elevation-z0 table table-hover">
+
+          <!-- Id Column-->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+          </ng-container>
+
+          <!-- Nombre Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+          </ng-container>
+
+          <!-- Apellidos Column -->
+          <ng-container matColumnDef="apellidos">
+            <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+            <td mat-cell *matCellDef="let element">{{element.apellidos}}</td>
+          </ng-container>
+
+          <!-- Edad Column -->
+          <ng-container matColumnDef="edad">
+            <th mat-header-cell *matHeaderCellDef>Edad</th>
+            <td mat-cell *matCellDef="let element">{{element.edad}}</td>
+          </ng-container>
+
+          <!-- DNI Column -->
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef>DNI</th>
+            <td mat-cell *matCellDef="let element">{{element.dni}}</td>
+          </ng-container>
+
+          <!-- Cumpleaños Column -->
+          <ng-container matColumnDef="cumpleanos">
+            <th mat-header-cell *matHeaderCellDef>Cumpleaños</th>
+            <td mat-cell *matCellDef="let element">{{element.cumpleanos | date:'dd/MM/yyyy'}}</td>
+          </ng-container>
+
+          <!-- Color favorito Column -->
+          <ng-container matColumnDef="colorFavorito">
+            <th mat-header-cell *matHeaderCellDef>Color favorito</th>
+            <td mat-cell *matCellDef="let element">{{element.colorFavorito}}</td>
+          </ng-container>
+
+          <!-- Sexo Column -->
+          <ng-container matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef>Sexo</th>
+            <td mat-cell *matCellDef="let element">{{element.sexo}}</td>
+          </ng-container>
+
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td class="acciones" mat-cell *matCellDef="let element; let i = index">
+              <button class="btn-editar pointer" type="button" mat-button matTooltip="Editar contacto" (click)="abrirParaEditar(i, true)"><mat-icon class="btn-editar">edit</mat-icon></button>
+              <button class="btn-eliminar pointer" type="button" mat-button matTooltip="Eliminar contacto" (click)="eliminarContacto(i)"><mat-icon class="btn-borrar">delete</mat-icon></button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
